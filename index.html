@@ -59,19 +59,15 @@
         autoplay 
         auto-rotate
         
-        /* FIX: CENTROWANIE OBROTU */
-        camera-target="0m 0m 0m"
-        align-model="center"
+        /* POWRÓT DO NATURALNEJ OSI OBROTU */
+        /* Usunęliśmy camera-target i align-model */
 
-        /* FIX: SCROLL NA KOMPUTERZE I ZOOM */
-        disable-zoom="false"
-        min-field-of-view="10deg"
-        max-field-of-view="auto"
+        /* ZOOM I SCROLL - POPRAWIONE */
         min-camera-orbit="auto auto 5%"
         max-camera-orbit="auto auto 500%"
-
-        /* FIX: REAKCJA NA DOTYK (Zredukowane opóźnienie) */
-        interpolation-decay="50"
+        
+        /* BŁYSKAWICZNA REAKCJA (Minimalne wygładzenie) */
+        interpolation-decay="20"
         
         touch-action="none">
         
