@@ -12,12 +12,13 @@
             transition: background-color 0.5s ease;
             display: flex; justify-content: center; align-items: center; 
             height: 100vh; overflow: hidden; 
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif; 
             -webkit-font-smoothing: antialiased;
         }
         body.dark-mode { --bg-color: #121212; }
         model-viewer { width: 100%; height: 100vh; background-color: transparent; outline: none; }
 
+        /* Ujednolicenie stylu wszystkich elementów UI */
         .ui-element {
             position: absolute;
             fill: #f0f0f0 !important;
@@ -25,6 +26,7 @@
             mix-blend-mode: difference;
             background: none; border: none; padding: 0;
             cursor: pointer; z-index: 100; 
+            opacity: 1; /* Wszystkie elementy tak samo wyraźne */
         }
 
         .brand-name { 
@@ -36,44 +38,42 @@
 
         #info-panel {
             position: absolute;
-            top: 70px; /* Podniesione bliżej CCRT */
+            top: 72px;
             left: 40px; 
             color: #f0f0f0;
             mix-blend-mode: difference;
             opacity: 0;
             pointer-events: none;
             transition: all 0.4s ease;
-            transform: translateY(-5px);
             z-index: 90;
         }
-        #info-panel.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        #info-panel.visible { opacity: 1; pointer-events: auto; }
         
         .info-label { 
-            font-weight: 100 !important;
+            font-weight: 300; 
             text-transform: uppercase; 
-            font-size: 11px; /* Powiększone o 20% */
+            font-size: 11px; 
             letter-spacing: 2px; 
             display: block; 
-            margin-top: 12px; /* Zmniejszone odstępy */
-            margin-bottom: 1px; 
-            opacity: 0.18; /* Ciemniejsze (bardziej przezroczyste) */
+            margin-top: 10px; 
+            opacity: 0.2; /* Przyciemnione o 20% względem wartości */
         }
         .info-value { 
-            font-weight: 400; 
-            font-size: 13px; 
+            font-weight: 500; 
+            font-size: 14px; 
             display: block;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
         @media (min-width: 769px) {
-            .brand-name { font-weight: 500; font-size: 21px; }
-            .info-value { font-weight: 300 !important; font-size: 13px; }
-            .info-label { font-size: 10px; opacity: 0.15; margin-top: 14px; }
+            .brand-name { font-weight: 600; font-size: 22px; }
+            .info-value { font-weight: 400; font-size: 14px; }
+            .info-label { opacity: 0.15; font-weight: 200; }
         }
 
         .action-button { top: 32px; right: 40px; min-width: 44px; height: 32px; display: flex; align-items: center; justify-content: center; }
-        .theme-button { bottom: 40px; left: 40px; width: 32px; height: 32px; opacity: 0.5; }
-        .reset-button { bottom: 40px; right: 40px; width: 34px; height: 34px; opacity: 0.5; }
+        .theme-button { bottom: 40px; left: 40px; width: 32px; height: 32px; }
+        .reset-button { bottom: 40px; right: 40px; width: 34px; height: 34px; }
 
         .ui-element svg { width: 100%; height: 100%; display: block; }
         #progress-bar { position: absolute; top: 0; left: 0; width: 0%; height: 2px; background-color: #f0f0f0; mix-blend-mode: difference; z-index: 20; }
@@ -111,6 +111,7 @@
         </svg>
     </button>
 
+    <!-- Dodano min/max camera orbit, aby umożliwić ręczne pomniejszanie -->
     <model-viewer 
         id="clock-model"
         src="ZEGAR.glb" 
@@ -118,7 +119,8 @@
         camera-controls disable-pan
         shadow-intensity="1.5" exposure="1.6" environment-intensity="1.8"
         autoplay auto-rotate
-        camera-orbit="0deg 55deg 330%" 
+        min-camera-orbit="auto auto 100%"
+        max-camera-orbit="auto auto 600%"
         camera-target="0m 0.05m 0m">
     </model-viewer>
 
@@ -131,18 +133,18 @@
 
         function applyResponsiveSettings() {
             const isMobile = window.innerWidth < 768;
+            // Ustawiamy tylko punkt startowy. Użytkownik może potem sam pomniejszyć.
             if (isMobile) {
-                // Skala 260% - wyraźnie mniejszy obiekt
-                modelViewer.cameraOrbit = "0deg 55deg 260%";
+                modelViewer.cameraOrbit = "0deg 55deg 280%";
                 modelViewer.cameraTarget = "0m 0.06m 0m";
             } else {
-                // Skala 330% - duży dystans dla PC
-                modelViewer.cameraOrbit = "0deg 55deg 330%";
+                modelViewer.cameraOrbit = "0deg 55deg 350%";
                 modelViewer.cameraTarget = "0m 0.04m 0m";
             }
         }
+        
+        // Wywołujemy tylko raz na początku, żeby nie blokować scrolla użytkownika
         window.addEventListener('load', applyResponsiveSettings);
-        window.addEventListener('resize', applyResponsiveSettings);
 
         const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         if (!isMobileDevice) { 
