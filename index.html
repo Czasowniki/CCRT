@@ -61,12 +61,16 @@
         autoplay 
         auto-rotate
         
-        /* KLUCZ DO MNIEJSZEGO OBIEKTU NA STARCIE */
-        /* Zwiększenie trzeciej wartości (160%) oddala kamerę początkową */
+        /* SKALA POCZĄTKOWA */
         camera-orbit="0deg 75deg 160%" 
+
+        /* POPRAWIONA HAPTYKA */
+        /* Zwiększona czułość - teraz jeden ruch palcem obróci go o wiele bardziej */
+        orbit-sensitivity="1.8" 
         
-        /* DYNAMIKA RUCHU - LEKKIE PREMIUM */
-        interpolation-decay="150" 
+        /* Zmniejszone tłumienie - model jest lżejszy w ruszaniu */
+        interpolation-decay="100" 
+        
         auto-rotate-delay="2000"
         
         /* ZAKRESY ZOOMU */
