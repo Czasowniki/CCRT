@@ -25,11 +25,9 @@
 
         .ui-element {
             position: absolute;
-            /* Magia kontrastu: */
             fill: #ffffff !important;
             color: #ffffff !important;
             mix-blend-mode: difference;
-            
             background: none; border: none; padding: 0;
             cursor: pointer; z-index: 100; 
             transition: transform 0.2s;
@@ -55,25 +53,24 @@
 
     <div id="progress-bar"></div>
 
-    <!-- NAPRAWIONA IKONA CELOWNIKA -->
+    <!-- LEWA IKONA: Celownik (2 strzałki do środka po przekątnej) -->
     <button class="ui-element reset-button" id="reset-view" title="Resetuj widok">
         <svg viewBox="0 0 24 24">
-            <!-- Lewy górny -->
-            <path d="M4 4v6h2V6h4V4H4z"/>
-            <!-- Prawy górny -->
-            <path d="M20 4h-6v2h4v4h2V4z"/>
-            <!-- Lewy dolny -->
-            <path d="M4 20h6v-2H6v-4H4v6z"/>
-            <!-- Prawy dolny -->
-            <path d="M20 20v-6h-2v4h-4v2h6z"/>
+            <!-- Górna prawa strzałka skierowana do środka -->
+            <path d="M14 7h3v3h2V4h-5v2z"/>
+            <!-- Dolna lewa strzałka skierowana do środka -->
+            <path d="M10 17H7v-3H5v6h5v-2z"/>
         </svg>
     </button>
 
+    <!-- PRAWA IKONA: Fullscreen (2 strzałki na zewnątrz po przekątnej) -->
     <button class="ui-element action-button" id="main-action">
         <span id="ar-text" style="font-weight: 600; font-size: 18px; letter-spacing: 5px;">AR</span>
         <svg id="fullscreen-icon" viewBox="0 0 24 24" style="display: none;">
-            <!-- Tylko dwie strzałki po przekątnej -->
-            <path d="M14 4h6v6h-2V7h-3V4zM4 14h2v3h3v2H4v-6z"/>
+            <!-- Górna prawa strzałka na zewnątrz -->
+            <path d="M14 4h6v6h-2V7h-3V4z"/>
+            <!-- Dolna lewa strzałka na zewnątrz -->
+            <path d="M4 14h2v3h3v2H4v-6z"/>
         </svg>
     </button>
 
