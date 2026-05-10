@@ -17,6 +17,7 @@
         body.dark-mode { --bg-color: #121212; }
         model-viewer { width: 100%; height: 100vh; background-color: transparent; outline: none; }
 
+        /* BAZA DLA WSZYSTKICH ELEMENTÓW UI */
         .ui-element {
             position: absolute;
             background: none; border: none; padding: 0;
@@ -24,27 +25,26 @@
             mix-blend-mode: difference;
             color: #f0f0f0 !important;
             fill: #f0f0f0 !important;
-            transition: transform 0.2s ease;
-            opacity: 1 !important; /* Stała jasność */
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+            will-change: transform; /* Naprawa rozmycia */
+            backface-visibility: hidden;
             -webkit-tap-highlight-color: transparent;
             outline: none;
             text-decoration: none !important;
         }
 
-        /* Naprawa przesunięcia przy powiększaniu dla ikon środkowych */
-        .ui-element.centered {
-            transform: translateX(-50%) scale(1);
-        }
+        /* SPECYFICZNE SKALOWANIE DLA TEKSTU U GÓRY (SUBTELNE) */
+        .brand-btn:hover { transform: scale(1.03); }
+        .brand-btn:active { transform: scale(1.02); }
 
-        /* FEEDBACK PC (Zmniejszony o połowę) */
-        @media (hover: hover) {
-            .ui-element:hover { transform: scale(1.05); }
-            .ui-element.centered:hover { transform: translateX(-50%) scale(1.05); }
-        }
+        /* SPECYFICZNE SKALOWANIE DLA IKON (MOCNIEJSZE) */
+        .icon-btn:hover { transform: scale(1.1); }
+        .icon-btn:active { transform: scale(1.05); }
 
-        /* FEEDBACK MOBILE (Zmniejszony o połowę) */
-        .ui-element:active { transform: scale(1.03); }
-        .ui-element.centered:active { transform: translateX(-50%) scale(1.03); }
+        /* ŚRODKOWE IKONY (NAPRAWA POZYCJI) */
+        .centered { transform: translateX(-50%) scale(1); }
+        .centered:hover { transform: translateX(-50%) scale(1.1); }
+        .centered:active { transform: translateX(-50%) scale(1.05); }
 
         /* GÓRA */
         .brand-btn { top: 32px; font-weight: 700; font-size: 18px; letter-spacing: 2px; }
@@ -60,7 +60,7 @@
         #panel-ccrt { left: 32px; }
         #panel-czasowniki { right: 32px; text-align: right; max-width: 220px; }
 
-        /* BELKA DOLNA */
+        /* DOLNA BELKA */
         .btn-0 { bottom: 40px; left: 32px; }
         .btn-33 { bottom: 40px; left: 33.33%; }
         .btn-66 { bottom: 40px; left: 66.66%; }
@@ -113,8 +113,8 @@
         src="ZEGAR.glb" 
         ar ar-modes="webxr scene-viewer quick-look" 
         camera-controls disable-pan
-        shadow-intensity="3.5" 
-        shadow-softness="0.5"
+        shadow-intensity="10" 
+        shadow-softness="0.1"
         exposure="1.6" 
         environment-intensity="1.8"
         autoplay auto-rotate
