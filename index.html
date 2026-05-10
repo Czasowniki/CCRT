@@ -24,8 +24,6 @@
             transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             -webkit-tap-highlight-color: transparent;
             outline: none;
-            
-            /* POWRÓT DO INTELIGENTNEGO KOLORU */
             mix-blend-mode: difference;
             color: #ffffff !important; 
             fill: #ffffff !important;
@@ -45,7 +43,6 @@
         #panel-ccrt { left: 32px; }
         #panel-czasowniki { right: 32px; text-align: right; max-width: 220px; }
 
-        /* PRECYZYJNE ROZMIESZCZENIE */
         .icon-btn { width: 28px; height: 28px; bottom: 40px; display: flex; align-items: center; justify-content: center; }
         .btn-theme { left: 32px; }
         .btn-pause { left: 36%; transform: translateX(-50%); }
@@ -102,8 +99,8 @@
         src="ZEGAR.glb" 
         ar ar-modes="webxr scene-viewer quick-look" 
         camera-controls disable-pan
-        shadow-intensity="12" 
-        shadow-softness="0.3"
+        shadow-intensity="20" 
+        shadow-softness="1"
         exposure="1.6" 
         environment-intensity="1.8"
         autoplay auto-rotate
