@@ -7,7 +7,7 @@
     <title>Czasowniki CCRT</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
-        :root { --bg-color: #ffffff; }
+        :root { --bg-color: #ffffff; --ui-color: #f0f0f0; }
         body { 
             margin: 0; background-color: var(--bg-color); 
             transition: background-color 0.5s ease;
@@ -15,7 +15,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             -webkit-font-smoothing: antialiased;
         }
-        body.dark-mode { --bg-color: #121212; }
+        body.dark-mode { --bg-color: #121212; --ui-color: #121212; }
         model-viewer { width: 100%; height: 100vh; background-color: transparent; outline: none; }
 
         .ui-element {
@@ -27,33 +27,43 @@
             -webkit-tap-highlight-color: transparent;
             outline: none;
             mix-blend-mode: difference;
-            color: #f0f0f0 !important;
-            fill: #f0f0f0 !important;
         }
 
-        /* GÓRA */
-        .brand-btn { position: absolute; top: 32px; font-weight: 700; font-size: 18px; letter-spacing: 2px; }
+        /* NAPISY GÓRA */
+        .brand-btn { 
+            position: absolute; top: 32px; 
+            font-weight: 700; font-size: 18px; letter-spacing: 2px;
+            color: #f0f0f0 !important;
+        }
         .brand-ccrt { left: 32px; }
         .brand-czasowniki { right: 32px; text-align: right; }
 
         .info-panel {
-            position: absolute; top: 60px; color: #f0f0f0; mix-blend-mode: difference;
+            position: absolute; top: 60px; 
+            color: #f0f0f0; mix-blend-mode: difference;
             opacity: 0; pointer-events: none; transition: all 0.4s ease; z-index: 90;
-            font-weight: 100; font-size: 13px; line-height: 1.5; letter-spacing: 0.5px;
+            font-weight: 100; font-size: 13px; line-height: 1.5;
+            letter-spacing: 0.5px;
         }
         .info-panel.visible { opacity: 1; pointer-events: auto; }
         #panel-ccrt { left: 32px; }
         #panel-czasowniki { right: 32px; text-align: right; max-width: 220px; }
 
-        /* BELKA DOLNA - SYMETERIA */
+        /* BELKA DOLNA - RÓWNE ODSTĘPY */
         .nav-bar {
             position: absolute; bottom: 40px; left: 32px; right: 32px;
             display: flex; justify-content: space-between; align-items: center;
             z-index: 100; pointer-events: none;
         }
         .nav-bar .icon-btn { pointer-events: auto; }
+
         .icon-btn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; }
         .icon-btn svg { width: 100%; height: 100%; }
+        
+        /* KOLOR IKON IDENTYCZNY Z TYPO */
+        .icon-btn svg path, .icon-btn svg circle {
+            fill: #f0f0f0 !important;
+        }
 
         /* FEEDBACK PC */
         @media (hover: hover) {
@@ -76,9 +86,7 @@
         }
     </style>
 </head>
-<body class="dark-mode">
-
-    <button class="ui-element brand-btn brand-ccrt" id="toggle-ccrt">CCRT</button>
+<body class="dark-mode"> <button class="ui-element brand-btn brand-ccrt" id="toggle-ccrt">CCRT</button>
     <div id="panel-ccrt" class="info-panel">Mechanizm kwarcowy<br>120x100x100 mm<br>Druk 3D PLA</div>
 
     <button class="ui-element brand-btn brand-czasowniki" id="toggle-czasowniki">CZASOWNIKI</button>
@@ -108,7 +116,7 @@
         id="clock-model"
         src="ZEGAR.glb" 
         ar ar-modes="webxr scene-viewer quick-look" 
-        camera-controls
+        camera-controls disable-pan
         shadow-intensity="10" 
         shadow-softness="0.1"
         exposure="1.6" 
@@ -117,15 +125,13 @@
         rotation-per-second="0deg"
         camera-orbit="0deg 55deg 180%"
         camera-target="0m 0.04m 0m"
-        min-camera-orbit="auto auto 100%" 
-        max-camera-orbit="auto auto 600%"
         interaction-prompt="none">
     </model-viewer>
 
     <script>
         const modelViewer = document.querySelector('#clock-model');
 
-        // Płynny start
+        // PŁYNNY START ROTACJI
         modelViewer.addEventListener('load', () => {
             let speed = 0;
             const accel = setInterval(() => {
@@ -135,16 +141,15 @@
             }, 100);
         });
 
-        // Reset kamery
+        // RESET
         const goHome = () => {
             const isMobile = window.innerWidth < 768;
             modelViewer.cameraOrbit = isMobile ? "0deg 55deg 165%" : "0deg 55deg 180%";
             modelViewer.cameraTarget = isMobile ? "0m 0.06m 0m" : "0m 0.04m 0m";
-            modelViewer.fieldOfView = "auto";
         };
         document.querySelector('#reset-view').onclick = goHome;
 
-        // Pauza wskazówek
+        // PAUZA
         const pauseBtn = document.getElementById('pause-toggle');
         const iconPause = document.getElementById('icon-pause');
         const iconPlay = document.getElementById('icon-play');
@@ -163,7 +168,7 @@
             }
         };
 
-        // UI
+        // PANELE
         const togglePanel = (show, hide) => {
             document.getElementById(show).classList.toggle('visible');
             document.getElementById(hide).classList.remove('visible');
@@ -171,13 +176,13 @@
         document.getElementById('toggle-ccrt').onclick = () => togglePanel('panel-ccrt', 'panel-czasowniki');
         document.getElementById('toggle-czasowniki').onclick = () => togglePanel('panel-czasowniki', 'panel-ccrt');
 
-        // Dark Mode
+        // MOTYW
         document.getElementById('theme-toggle').onclick = () => {
             document.body.classList.toggle('dark-mode');
             modelViewer.exposure = document.body.classList.contains('dark-mode') ? "1.6" : "2.8";
         };
 
-        // AR/FS
+        // AR / FS
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         if (isMobile) {
             document.getElementById('ar-label').style.display = 'block';
