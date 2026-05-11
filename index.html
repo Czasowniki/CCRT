@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#ffffff">
-    <title>CCRT - Zegar</title>
+    <title>CCRU - Zegar</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
         :root { 
@@ -30,7 +30,6 @@
             outline: none; display: block;
         }
 
-        /* UKRYCIE DOMYŚLNEJ IKONY AR NA ANDROIDZIE */
         model-viewer::part(default-ar-button) {
             display: none !important;
         }
@@ -46,15 +45,13 @@
             outline: none;
         }
 
-        /* NAGŁÓWKI MOBILE (CAPS LOCK, WAGA 700) */
         .brand-btn { 
             top: 32px; font-weight: 700; font-size: 15px; 
             letter-spacing: 0.2em; text-transform: uppercase;
         }
-        .brand-ccrt { left: 32px; }
+        .brand-ccru { left: 32px; }
         .brand-czasowniki { right: 32px; text-align: right; }
 
-        /* OPISY (LEKKI FONT 200, WIĘKSZY) */
         .info-panel {
             position: absolute; top: 65px; 
             color: var(--ui-white); mix-blend-mode: difference;
@@ -68,10 +65,9 @@
             transform: translateY(-5px);
         }
         .info-panel.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-        #panel-ccrt { left: 32px; }
+        #panel-ccru { left: 32px; }
         #panel-czasowniki { right: 32px; text-align: right; max-width: 320px; }
 
-        /* IKONY DOLNE */
         .icon-btn { width: 28px; height: 28px; bottom: 40px; display: flex; align-items: center; justify-content: center; }
         .icon-btn svg { width: 20px; height: 20px; }
         
@@ -86,12 +82,11 @@
         .btn-action { left: 63%; transform: translateX(-50%); }
         .btn-reset { right: 32px; }
 
-        /* OPTYMALIZACJA PC / DESKTOP */
         @media (min-width: 769px) {
             .brand-btn { 
                 font-size: 19px; 
                 top: 40px; 
-                font-weight: 500; /* Lżejszy font na PC, żeby nie dominował nad ikonami */
+                font-weight: 500; 
                 letter-spacing: 0.25em;
             }
             .info-panel { font-size: 16px; top: 85px; }
@@ -100,15 +95,15 @@
             .icon-btn svg { width: 24px; height: 24px; }
             #ar-label { 
                 font-size: 20px; 
-                font-weight: 500; /* AR na PC również lżejszy dla spójności */
+                font-weight: 500; 
             }
         }
     </style>
 </head>
 <body>
 
-    <button class="ui-element brand-btn brand-ccrt" id="toggle-ccrt">CCRT</button>
-    <div id="panel-ccrt" class="info-panel">
+    <button class="ui-element brand-btn brand-ccru" id="toggle-ccru">CCRU</button>
+    <div id="panel-ccru" class="info-panel">
         Mechanizm kwarcowy<br>120x100x100 mm<br>Druk 3D PLA
     </div>
 
@@ -139,7 +134,7 @@
 
     <model-viewer 
         id="clock-model"
-        src="ZEGAR.glb" 
+        src="CCRU.glb" 
         ar ar-modes="webxr scene-viewer quick-look" 
         camera-controls disable-pan
         shadow-intensity="1" shadow-softness="1"
@@ -179,11 +174,11 @@
 
         const togglePanel = (id) => {
             const p = document.getElementById(id);
-            const other = id === 'panel-ccrt' ? 'panel-czasowniki' : 'panel-ccrt';
+            const other = id === 'panel-ccru' ? 'panel-czasowniki' : 'panel-ccru';
             document.getElementById(other).classList.remove('visible');
             p.classList.toggle('visible');
         };
-        document.getElementById('toggle-ccrt').onclick = () => togglePanel('panel-ccrt');
+        document.getElementById('toggle-ccru').onclick = () => togglePanel('panel-ccru');
         document.getElementById('toggle-czasowniki').onclick = () => togglePanel('panel-czasowniki');
 
         document.getElementById('theme-toggle').onclick = () => {
