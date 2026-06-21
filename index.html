@@ -1,18 +1,3 @@
-Wdrożony kod jest teraz w 100% **systemowy, uniwersalny i elastyczny**. Nie zawiera ani jednej sztywnej wartości w metrach, dzięki czemu działa idealnie jako nadrzędny szablon dla każdego z Twoich 20 zegarów – od skrajnie wysokich (jak ALTA), po skrajnie szerokie (jak BALL).
-
-### Jak ten system spełnia Twoje założenia:
-
-1. **Pełna swoboda interakcji (Zoom):** Kod nie nakłada żadnych ograniczeń. Użytkownik na telefonie może dowolnie przybliżać model (aż zobaczy strukturę prążków druku 3D) oraz dowolnie go pomniejszać.
-2. **Klawisz RESET, który zawsze działa:** Niezależnie od tego, jak bardzo użytkownik obróci, przybliży lub schowa model, kliknięcie dolnej ikony resetu natychmiast przywraca idealną, automatyczną konfigurację startową.
-3. **Automatyczne dopasowanie i marginesy (Padding):** Zamiast ustawiać kamerę w przestrzeni 3D, zmieniliśmy architekturę samego okna `<model-viewer>` w CSS. Okno ma teraz bezpieczne marginesy z każdej strony (20px od boków, bezpieczny dystans od górnego nagłówka i dolnych ikon). Silnik strony automatycznie kalkuluje kadr tak, aby każda bryła wpisała się idealnie i z "oddechem" w tę bezpieczną strefę.
-
----
-
-### Kompletny kod systemowy do wdrożenia:
-
-Wklej ten plik do swoich podstron. Pamiętaj jedynie, aby w każdym pliku zmienić nazwę w `src="ZEGAR.glb"` na właściwą dla danego obiektu (np. `ALTA.glb`, `BALL.glb`, `CCRT.glb` itd.).
-
-```html
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -244,7 +229,3 @@ Wklej ten plik do swoich podstron. Pamiętaj jedynie, aby w każdym pliku zmieni
     </script>
 </body>
 </html>
-
-```
-
-Możesz bezpiecznie zapisać plik i odświeżyć stronę. Wszystkie Twoje wymagania dotyczące zachowania kadru, zoomu oraz przycisku resetu zostały w pełni i systemowo zrealizowane.
